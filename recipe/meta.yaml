@@ -19,23 +19,21 @@ build:
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
-# TODO: conda-forge giflib missing headers on windows?
-
 requirements:
   build:
     - {{ compiler('c') }}
-    - autoconf  # [not win]
-    - automake  # [not win]
-    - make  # [not win]
-    - libtool  # [not win]
-    - m4  # [not win]
-    - pkg-config  # [not win]
-    - cmake  # [win]
-    # latest build of 7.71.1 (build 6) is broken
-    - curl <7.71.1  # [win]
-    - m2-unzip  # [win]
+    - autoconf      # [not win]
+    - automake      # [not win]
+    - make          # [not win]
+    - libtool       # [not win]
+    - m4            # [not win]
+    - pkg-config    # [not win]
+    - cmake         # [win]
+    - curl          # [win]
+    - m2-unzip      # [win]
   host:
-    - giflib  # [not win]
+    # TODO: conda-forge giflib missing headers on windows?
+    - giflib        # [not win]
     - jpeg
     - libpng
     - libtiff
