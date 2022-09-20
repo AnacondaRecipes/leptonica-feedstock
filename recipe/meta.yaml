@@ -14,10 +14,12 @@ source:
     - cmake.patch  # [win]
 
 build:
-  number: 1
-  skip: true  # [win and vc<14]
+  number: 0
+  skip: True  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
+  ignore_run_exports:
+    - xz
 
 requirements:
   build:
