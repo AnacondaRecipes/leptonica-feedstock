@@ -36,16 +36,16 @@ requirements:
   host:
     # TODO: conda-forge giflib missing headers on windows?
     - giflib        # [not win]
-    - jpeg
-    - libpng
-    - libtiff
-    - libwebp
+    - jpeg          # [not win]
+    - libpng        # [not win]
+    - libtiff       # [not win]
+    - libwebp       # [not win]
     - openjpeg
     - xz
-    - zlib
+    - zlib          # [not win]
   run:
     # libwebp doesn't have run_exports yet (on version in conda-forge-pinning)
-    - libwebp
+    - libwebp       # [osx and arm64]
     - libwebp-base  # [osx and arm64]
 
 test:
