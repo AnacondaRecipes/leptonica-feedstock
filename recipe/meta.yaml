@@ -32,10 +32,9 @@ requirements:
     - m4            # [not win]
     - pkg-config    # [not win]
     - cmake         # [win]
-    #- curl          # [win]
-    #- m2-unzip      # [win]
+    - ninja-base    # [win]
   host:
-    # TODO: conda-forge giflib missing headers on windows?
+    # TODO: giflib missing headers on windows?
     - giflib  # [not win]
     - jpeg
     - libpng
