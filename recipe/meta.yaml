@@ -36,7 +36,7 @@ requirements:
     #- m2-unzip      # [win]
   host:
     # TODO: conda-forge giflib missing headers on windows?
-    - giflib
+    - giflib  # [not win]
     - jpeg
     - libpng
     - libtiff
