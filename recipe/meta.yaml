@@ -15,12 +15,13 @@ source:
 
 build:
   number: 0
-  skip: True  # [win and vc<14]
+  skip: True       # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
   ignore_run_exports:
-    #- libwebp  # [osx and arm64]
-    - jpeg  # [win]
+    - jpeg         # [win]
+    - libwebp      # [win or (osx and arm64)]
+    - libwebp-base      # [win or (osx and arm64)]
     - xz
 
 requirements:
