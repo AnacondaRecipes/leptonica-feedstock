@@ -9,8 +9,8 @@ cd build
 
 set PATH=%PATH%;%CD%
 
-sw setup
-if errorlevel 1 exit 1
+::sw setup
+::if errorlevel 1 exit 1
 
 cmake -G "NMake Makefiles" ^
       -D CMAKE_BUILD_TYPE=Release ^
