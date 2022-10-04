@@ -20,7 +20,7 @@ build:
     - {{ pin_subpackage(name, max_pin='x.x') }}
   ignore_run_exports:
     - jpeg         # [win]
-    #- libwebp      # [win or (osx and arm64)]
+    - libwebp      # [win or (osx and arm64)]
     - libwebp-base      # [win or (osx and arm64)]
 
 requirements:
