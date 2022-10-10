@@ -20,7 +20,7 @@ build:
     - {{ pin_subpackage(name, max_pin='x.x') }}
   ignore_run_exports:
     - jpeg         # [win]
-    #- libwebp      # [win or (osx and arm64)]
+    - libwebp      # [win]
     #- libwebp-base      # [win or (osx and arm64)]
 
 requirements:
@@ -45,7 +45,7 @@ requirements:
     - zlib
   run:
     # libwebp doesn't have run_exports yet (on version in conda-forge-pinning)
-    #- libwebp-base  # [osx and arm64]
+    - libwebp-base  # [osx and arm64]
 
 test:
   commands:
