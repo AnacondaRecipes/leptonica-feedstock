@@ -37,7 +37,7 @@ requirements:
     - m2-patch  # [win]
   host:
     # TODO: giflib missing headers on windows?
-    - giflib  # [not win]
+    - giflib
     - jpeg
     - libpng
     - libtiff
