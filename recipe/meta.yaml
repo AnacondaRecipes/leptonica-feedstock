@@ -10,7 +10,7 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/DanBloomberg/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
+  patches:         # [win]
     - cmake.patch  # [win]
 
 build:
@@ -30,10 +30,11 @@ requirements:
     - pkg-config    # [not win]
     - cmake         # [win]
     - ninja-base    # [win]
-    - sed      # [not win]
-    - m2-sed   # [win]
-    - gawk     # [not win]
-    - m2-gawk  # [win]
+    - sed       # [not win]
+    - m2-sed    # [win]
+    - gawk      # [not win]
+    - m2-gawk   # [win]
+    - m2-patch  # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib  # [not win]
