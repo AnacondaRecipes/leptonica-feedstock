@@ -14,13 +14,10 @@ source:
     - cmake.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: True       # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
-  ignore_run_exports:
-    - jpeg         # [win]
-    - libwebp      # [win or (osx and arm64)]
 
 requirements:
   build:
@@ -33,6 +30,10 @@ requirements:
     - pkg-config    # [not win]
     - cmake         # [win]
     - ninja-base    # [win]
+    - sed      # [not win]
+    - m2-sed   # [win]
+    - gawk     # [not win]
+    - m2-gawk  # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib  # [not win]
