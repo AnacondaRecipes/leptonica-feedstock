@@ -10,17 +10,14 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/DanBloomberg/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
+  patches:         # [win]
     - cmake.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: True       # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
-  ignore_run_exports:
-    - jpeg         # [win]
-    - libwebp      # [win or (osx and arm64)]
 
 requirements:
   build:
@@ -33,6 +30,11 @@ requirements:
     - pkg-config
     - cmake         # [win]
     - ninja-base    # [win]
+    - sed           # [not win]
+    - m2-sed        # [win]
+    - gawk          # [not win]
+    - m2-gawk       # [win]
+    - m2-patch      # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib
@@ -43,19 +45,18 @@ requirements:
     - openjpeg
     - zlib
   run:
-    # libwebp doesn't have run_exports yet (on version in conda-forge-pinning)
-    - libwebp-base  # [osx and arm64]
-
+    - libwebp
+    - libwebp-base
 test:
   commands:
     - convertfilestopdf --help 2>&1 | grep 'resolution' &> /dev/null  # [not win]
+    - convertfilestopdf --help || cmd /k "exit /b 0" # [win]
 
 about:
   home: https://github.com/DanBloomberg/leptonica
   license: BSD-2-Clause
   license_family: BSD
   license_file: leptonica-license.txt
-  license_url: https://github.com/DanBloomberg/leptonica/blob/master/leptonica-license.txt
   summary: Useful for image processing and image analysis applications
   description: |
     Leptonica is a pedagogically-oriented open source site containing	
