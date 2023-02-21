@@ -30,12 +30,12 @@ requirements:
     - make          # [not win]
     - libtool       # [not win]
     - m4            # [not win]
-    - pkg-config    # [not win]
+    - pkg-config
     - cmake         # [win]
     - ninja-base    # [win]
   host:
     # TODO: giflib missing headers on windows?
-    - giflib  # [not win]
+    - giflib
     - jpeg
     - libpng
     - libtiff
