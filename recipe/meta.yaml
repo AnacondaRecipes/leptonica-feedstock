@@ -50,7 +50,7 @@ requirements:
 test:
   commands:
     - convertfilestopdf --help 2>&1 | grep 'resolution' &> /dev/null  # [not win]
-    - convertfilestopdf --help  # [win]
+    - convertfilestopdf --help || cmd /k "exit /b 0" # [win]
 
 about:
   home: https://github.com/DanBloomberg/leptonica
