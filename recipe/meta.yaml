@@ -30,11 +30,11 @@ requirements:
     - pkg-config
     - cmake         # [win]
     - ninja-base    # [win]
-    - sed       # [not win]
-    - m2-sed    # [win]
-    - gawk      # [not win]
-    - m2-gawk   # [win]
-    - m2-patch  # [win]
+    - sed           # [not win]
+    - m2-sed        # [win]
+    - gawk          # [not win]
+    - m2-gawk       # [win]
+    - m2-patch      # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib
