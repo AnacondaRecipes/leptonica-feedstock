@@ -41,13 +41,13 @@ requirements:
     - jpeg
     - libpng
     - libtiff
-    - libwebp 1.3.2
-    - libwebp-base 1.3.2  # [win]
+    - libwebp
+    - libwebp-base  # [win]
     - openjpeg
     - zlib
   run:
-    - libwebp >=1.3.2,<2.0.0
-    - libwebp-base >=1.3.2,<2.0.0
+    - libwebp >=1.3.2,<2.0a0
+    - libwebp-base
 test:
   commands:
     - convertfilestopdf --help 2>&1 | grep 'resolution' &> /dev/null  # [not win]
