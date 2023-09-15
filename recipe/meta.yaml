@@ -42,6 +42,7 @@ requirements:
     - libpng
     - libtiff
     - libwebp
+    - libwebp-base  # [win]
     - openjpeg
     - zlib
   run:
