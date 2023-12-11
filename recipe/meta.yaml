@@ -14,7 +14,7 @@ source:
     - cmake.patch  # [win]
 
 build:
-  number: 1
+  number: 2
   skip: True       # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
@@ -37,16 +37,22 @@ requirements:
     - m2-patch      # [win]
   host:
     # TODO: giflib missing headers on windows?
-    - giflib
-    - jpeg
-    - libpng
-    - libtiff
-    - libwebp
-    - openjpeg
-    - zlib
+    - giflib  {{ giflib }}
+    - jpeg  {{ jpeg }}
+    - libpng  {{ libpng }}
+    - libtiff  {{ libtiff }}
+    - libwebp  {{ libwebp }}
+    - openjpeg  {{ openjpeg }}
+    - zlib  {{ zlib }}
   run:
-    - libwebp
-    - libwebp-base
+    - giflib   # pin through giflib run_exports
+    - jpeg   # pin through jpeg run_exports
+    - libpng   # pin through libpng run_exports
+    - libtiff   # pin through libtiff run_exports
+    - libwebp   # pin through libwebp run_exports
+    - openjpeg   # pin through openjpeg run_exports
+    - zlib   # pin through zlib run_exports
+
 test:
   commands:
     - convertfilestopdf --help 2>&1 | grep 'resolution' &> /dev/null  # [not win]
