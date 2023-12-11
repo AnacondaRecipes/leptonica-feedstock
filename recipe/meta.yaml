@@ -12,6 +12,7 @@ source:
   sha256: {{ sha256 }}
   patches:         # [win]
     - cmake.patch  # [win]
+    - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
 
 build:
   number: 2
