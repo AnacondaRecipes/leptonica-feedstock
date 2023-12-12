@@ -1,0 +1,53 @@
+From e7ec66ed63c1983cf51c8c706b384e9811d6949c Mon Sep 17 00:00:00 2001
+From: Jean-Christophe Morin <jcmorin@anaconda.com>
+Date: Mon, 11 Dec 2023 18:23:16 -0500
+Subject: [PATCH] Explicitly link against libwebpmux on Windows
+
+This fixes these link errors:
+
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxDelete referenced in function pixaWriteMemWebPAnim                                                                                                                              
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxCreateInternal referenced in function WebPMuxCreate                                                                                                                             
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxSetAnimationParams referenced in function pixaWriteMemWebPAnim                                                                                                                  
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxGetAnimationParams referenced in function pixaWriteMemWebPAnim                                                                                                                  
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxAssemble referenced in function pixaWriteMemWebPAnim                                                                                                                            
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderOptionsInitInternal referenced in function WebPAnimEncoderOptionsInit                                                                                                   
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderNewInternal referenced in function WebPAnimEncoderNew                                                                                                                   
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderAdd referenced in function pixaWriteMemWebPAnim                                                                                                                         
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderAssemble referenced in function pixaWriteMemWebPAnim                                                                                                                    
+leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderDelete referenced in function pixaWriteMemWebPAnim   
+
+---
+ CMakeLists.txt     | 1 +
+ src/CMakeLists.txt | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6d300da..a189726 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -242,6 +242,7 @@ if(NOT SW_BUILD)
+     message( STATUS "Used TIFF library: ${TIFF_LIBRARIES}")
+     message( STATUS "Used GIF library:  ${GIF_LIBRARIES}")
+     message( STATUS "Used WEBP library: ${WEBP_LIBRARIES}")
++    message( STATUS "Used WEBPMUX library: ${WEBPMUX_LIBRARIES}")
+ endif()
+ message( STATUS "--------------------------------------------------------")
+ message( STATUS )
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 1797d78..2421d3d 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -52,8 +52,8 @@ if (TIFF_LIBRARIES)
+     target_link_libraries       (leptonica ${TIFF_LIBRARIES})
+ endif()
+ if (WEBP_FOUND)
+-    target_include_directories  (leptonica PUBLIC ${WEBP_INCLUDE_DIRS})
+-    target_link_libraries       (leptonica ${WEBP_LIBRARIES})
++    target_include_directories  (leptonica PUBLIC ${WEBP_INCLUDE_DIRS} ${WEBPMUX_INCLUDE_DIRS})
++    target_link_libraries       (leptonica ${WEBP_LIBRARIES} ${WEBPMUX_LIBRARIES})
+ endif()
+ if (ZLIB_LIBRARIES)
+     target_include_directories  (leptonica PUBLIC ${ZLIB_INCLUDE_DIRS})
+-- 
+2.43.0
+
