@@ -15,7 +15,7 @@ source:
     - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
 
 build:
-  number: 2
+  number: 3
   skip: True       # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
@@ -41,7 +41,7 @@ requirements:
     - giflib  {{ giflib }}
     - jpeg  {{ jpeg }}
     - libpng  {{ libpng }}
-    - libtiff  {{ libtiff }}
+    - libtiff  4.7.0
     - libwebp  {{ libwebp }}
     - openjpeg  {{ openjpeg }}
     - zlib  {{ zlib }}
