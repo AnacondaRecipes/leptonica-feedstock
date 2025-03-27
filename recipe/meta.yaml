@@ -16,7 +16,7 @@ source:
 
 build:
   number: 3
-  skip: True       # [win and vc<14]
+  skip: True  # [s390x or (win and vc<14)]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
