@@ -29,7 +29,7 @@ requirements:
     - make          # [not win]
     - libtool       # [not win]
     - m4            # [not win]
-    - pkg-config
+    - pkg-config    # [not win]
     - cmake         # [win]
     - ninja-base    # [win]
     - sed           # [not win]
