@@ -34,8 +34,8 @@ ninja install
 if errorlevel 1 exit /b 1
 
 :: Make copies of the .lib file without the embedded version number
-copy %LIBRARY_LIB%\leptonica-1.82.0.lib %LIBRARY_LIB%\leptonica.lib
-copy %LIBRARY_LIB%\leptonica-1.82.0.lib %LIBRARY_LIB%\lept.lib
+copy %LIBRARY_LIB%\leptonica-%PKG_VERSION%.lib %LIBRARY_LIB%\leptonica.lib
+copy %LIBRARY_LIB%\leptonica-%PKG_VERSION%.lib %LIBRARY_LIB%\lept.lib
 
 :: Error free exit.
 echo "Error free exit!"
