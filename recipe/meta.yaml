@@ -38,21 +38,21 @@ requirements:
     - m2-patch      # [win]
   host:
     # TODO: giflib missing headers on windows?
-    - giflib  {{ giflib }}
-    - jpeg  {{ jpeg }}
-    - libpng  {{ libpng }}
-    - libtiff  4.7.0
-    - libwebp  {{ libwebp }}
-    - openjpeg  {{ openjpeg }}
-    - zlib  {{ zlib }}
+    - giflib {{ giflib }}
+    - jpeg {{ jpeg }}
+    - libpng {{ libpng }}
+    - libtiff 4.7.0
+    - libwebp {{ libwebp }}
+    - openjpeg 2.5.2
+    - zlib {{ zlib }}
   run:
-    - giflib   # pin through giflib run_exports
-    - jpeg   # pin through jpeg run_exports
-    - libpng   # pin through libpng run_exports
+    - giflib    # pin through giflib run_exports
+    - jpeg      # pin through jpeg run_exports
+    - libpng    # pin through libpng run_exports
     - libtiff   # pin through libtiff run_exports
     - libwebp   # pin through libwebp run_exports
-    - openjpeg   # pin through openjpeg run_exports
-    - zlib   # pin through zlib run_exports
+    - openjpeg  # pin through openjpeg run_exports
+    - zlib      # pin through zlib run_exports
 
 test:
   commands:
