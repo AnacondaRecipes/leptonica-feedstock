@@ -1,6 +1,6 @@
 {% set name = "leptonica" %}
-{% set version = "1.82.0" %}
-{% set sha256 = "155302ee914668c27b6fe3ca9ff2da63b245f6d62f3061c8f27563774b8ae2d6" %}
+{% set version = "1.83.1" %}
+{% set sha256 = "8f18615e0743af7df7f50985c730dfcf0c93548073d1f56621e4156a8b54d3dd" %}
 
 package:
   name: {{ name|lower }}
@@ -23,13 +23,12 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
     - autoconf      # [not win]
     - automake      # [not win]
     - make          # [not win]
     - libtool       # [not win]
     - m4            # [not win]
-    - pkg-config
+    - pkg-config    # [not win]
     - cmake         # [win]
     - ninja-base    # [win]
     - sed           # [not win]
