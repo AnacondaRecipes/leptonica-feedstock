@@ -1,6 +1,4 @@
 :: cmd
-set PATH=%PATH%;%CD%
-
 echo "Building %PKG_NAME%."
 
 
@@ -12,6 +10,7 @@ if errorlevel 1 exit /b 1
 :: Generate the build files.
 echo "Generating the build files..."
 cmake .. %CMAKE_ARGS% ^
+      -G"Ninja" ^
       -DCMAKE_BUILD_TYPE=Release ^
       -DBUILD_PROG=1 ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
@@ -21,15 +20,18 @@ cmake .. %CMAKE_ARGS% ^
       -DBUILD_SHARED_LIBS=ON ^
       -DCMAKE_MODULE_LINKER_FLAGS=-whole-archive ^
       -DSW_BUILD=OFF ^
-      -G "NMake Makefiles" ^
       ..
 if errorlevel 1 exit 1
 
-cmake --build . --config Release
-if errorlevel 1 exit 1
+:: Build.
+echo "Building..."
+ninja
+if errorlevel 1 exit /b 1
 
-cmake --build . --config Release --target install
-if errorlevel 1 exit 1
+:: Install.
+echo "Installing..."
+ninja install
+if errorlevel 1 exit /b 1
 
 :: Make copies of the .lib file without the embedded version number
 copy %LIBRARY_LIB%\leptonica-%PKG_VERSION%.lib %LIBRARY_LIB%\leptonica.lib
