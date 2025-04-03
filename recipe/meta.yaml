@@ -13,6 +13,7 @@ source:
   patches:         # [win]
     - cmake.patch  # [win]
     - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
+    - remove-m-lib-on-win.patch  # [win]
 
 build:
   number: 3
