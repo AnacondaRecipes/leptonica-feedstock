@@ -17,6 +17,8 @@ cmake .. %CMAKE_ARGS% ^
       -DCMAKE_INCLUDE_PATH=%LIBRARY_INC% ^
       -DCMAKE_LIBRARY_PATH=%LIBRARY_LIB% ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
+      -DBUILD_SHARED_LIBS=ON ^
+      -DCMAKE_MODULE_LINKER_FLAGS=-whole-archive ^
       -DSW_BUILD=OFF ^
       ..
 if errorlevel 1 exit 1
