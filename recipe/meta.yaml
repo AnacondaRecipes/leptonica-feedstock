@@ -29,6 +29,7 @@ requirements:
     - make          # [not win]
     - libtool       # [not win]
     - m4            # [not win]
+    # pkg-config on Windows pulls in m.lib and the linker fails
     - pkg-config    # [not win]
     - cmake         # [win]
     - ninja-base    # [win]
