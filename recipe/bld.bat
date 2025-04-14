@@ -1,6 +1,4 @@
 :: cmd
-set PATH=%PATH%;%CD%
-
 echo "Building %PKG_NAME%."
 
 
@@ -19,6 +17,8 @@ cmake .. %CMAKE_ARGS% ^
       -DCMAKE_INCLUDE_PATH=%LIBRARY_INC% ^
       -DCMAKE_LIBRARY_PATH=%LIBRARY_LIB% ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
+      -DBUILD_SHARED_LIBS=ON ^
+      -DCMAKE_MODULE_LINKER_FLAGS=-whole-archive ^
       -DSW_BUILD=OFF ^
       ..
 if errorlevel 1 exit 1
@@ -34,8 +34,8 @@ ninja install
 if errorlevel 1 exit /b 1
 
 :: Make copies of the .lib file without the embedded version number
-copy %LIBRARY_LIB%\leptonica-1.82.0.lib %LIBRARY_LIB%\leptonica.lib
-copy %LIBRARY_LIB%\leptonica-1.82.0.lib %LIBRARY_LIB%\lept.lib
+copy %LIBRARY_LIB%\leptonica-%PKG_VERSION%.lib %LIBRARY_LIB%\leptonica.lib
+copy %LIBRARY_LIB%\leptonica-%PKG_VERSION%.lib %LIBRARY_LIB%\lept.lib
 
 :: Error free exit.
 echo "Error free exit!"
