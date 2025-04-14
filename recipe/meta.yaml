@@ -43,7 +43,7 @@ requirements:
     - giflib {{ giflib }}
     - jpeg {{ jpeg }}
     - libpng {{ libpng }}
-    - libtiff 4.7.0
+    - libtiff {{ libtiff }}
     - libwebp {{ libwebp }}
     - openjpeg 2.5.2
     - zlib {{ zlib }}
