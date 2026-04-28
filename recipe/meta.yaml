@@ -1,6 +1,6 @@
 {% set name = "leptonica" %}
-{% set version = "1.82.0" %}
-{% set sha256 = "155302ee914668c27b6fe3ca9ff2da63b245f6d62f3061c8f27563774b8ae2d6" %}
+{% set version = "1.87.0" %}
+{% set sha256 = "c73363397f96eb1295602bf44d708a994ad42046c791bf03ea0505d829bdb6a7" %}
 
 package:
   name: {{ name|lower }}
@@ -10,13 +10,13 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/DanBloomberg/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:         # [win]
+  patches:  # [win]
     - cmake.patch  # [win]
     - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
 
 build:
-  number: 3
-  skip: True  # [win and vc<14]
+  number: 0
+  skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
@@ -24,20 +24,19 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - autoconf      # [not win]
-    - automake      # [not win]
-    - make          # [not win]
-    - libtool       # [not win]
-    - m4            # [not win]
+    - autoconf  # [not win]
+    - automake  # [not win]
+    - make  # [not win]
+    - libtool  # [not win]
+    - m4  # [not win]
     # pkg-config on Windows pulls in m.lib and the linker fails
-    - pkg-config    # [not win]
-    - cmake         # [win]
-    - ninja-base    # [win]
-    - sed           # [not win]
-    - m2-sed        # [win]
-    - gawk          # [not win]
-    - m2-gawk       # [win]
-    - m2-patch      # [win]
+    - pkg-config  # [not win]
+    - cmake  # [win]
+    - ninja-base  # [win]
+    - sed  # [not win]
+    - m2-sed  # [win]
+    - gawk  # [not win]
+    - m2-gawk  # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib {{ giflib }}
@@ -48,18 +47,18 @@ requirements:
     - openjpeg 2.5.2
     - zlib {{ zlib }}
   run:
-    - giflib    # pin through giflib run_exports
-    - jpeg      # pin through jpeg run_exports
-    - libpng    # pin through libpng run_exports
-    - libtiff   # pin through libtiff run_exports
-    - libwebp   # pin through libwebp run_exports
+    - giflib  # pin through giflib run_exports
+    - jpeg  # pin through jpeg run_exports
+    - libpng  # pin through libpng run_exports
+    - libtiff  # pin through libtiff run_exports
+    - libwebp  # pin through libwebp run_exports
     - openjpeg  # pin through openjpeg run_exports
-    - zlib      # pin through zlib run_exports
+    - zlib  # pin through zlib run_exports
 
 test:
   commands:
     - convertfilestopdf --help 2>&1 | grep 'resolution' &> /dev/null  # [not win]
-    - convertfilestopdf --help || cmd /k "exit /b 0" # [win]
+    - convertfilestopdf --help || cmd /k "exit /b 0"  # [win]
 
 about:
   home: https://github.com/DanBloomberg/leptonica
@@ -68,11 +67,11 @@ about:
   license_file: leptonica-license.txt
   summary: Useful for image processing and image analysis applications
   description: |
-    Leptonica is a pedagogically-oriented open source site containing	
-    software that is broadly useful for image processing and image	
+    Leptonica is a pedagogically-oriented open source site containing
+    software that is broadly useful for image processing and image
     analysis applications.
   # HTTPS isn't available for doc_url
-  doc_url: http://www.leptonica.org/
+  doc_url: https://www.leptonica.org/
   dev_url: https://github.com/DanBloomberg/leptonica
 
 extra:
