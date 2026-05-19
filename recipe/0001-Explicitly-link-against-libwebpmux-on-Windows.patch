@@ -1,53 +1,37 @@
-From e7ec66ed63c1983cf51c8c706b384e9811d6949c Mon Sep 17 00:00:00 2001
-From: Jean-Christophe Morin <jcmorin@anaconda.com>
-Date: Mon, 11 Dec 2023 18:23:16 -0500
-Subject: [PATCH] Explicitly link against libwebpmux on Windows
-
-This fixes these link errors:
-
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxDelete referenced in function pixaWriteMemWebPAnim                                                                                                                              
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxCreateInternal referenced in function WebPMuxCreate                                                                                                                             
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxSetAnimationParams referenced in function pixaWriteMemWebPAnim                                                                                                                  
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxGetAnimationParams referenced in function pixaWriteMemWebPAnim                                                                                                                  
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPMuxAssemble referenced in function pixaWriteMemWebPAnim                                                                                                                            
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderOptionsInitInternal referenced in function WebPAnimEncoderOptionsInit                                                                                                   
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderNewInternal referenced in function WebPAnimEncoderNew                                                                                                                   
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderAdd referenced in function pixaWriteMemWebPAnim                                                                                                                         
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderAssemble referenced in function pixaWriteMemWebPAnim                                                                                                                    
-leptonica-1.82.0.lib(webpanimio.c.obj) : error LNK2019: unresolved external symbol WebPAnimEncoderDelete referenced in function pixaWriteMemWebPAnim   
+From 63e6f6c1237335f1ad2b8244ca9b6b6a38d607b6 Mon Sep 17 00:00:00 2001
+From: adbeda <adbedada@gmail.com>
+Date: Fri, 16 Aug 2019 13:12:23 -0400
+Subject: [PATCH] point to our own prefix in CMake metadata on windows
 
 ---
- CMakeLists.txt     | 1 +
- src/CMakeLists.txt | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ cmake/templates/LeptonicaConfig.cmake.in | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6d300da..a189726 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -242,6 +242,7 @@ if(NOT SW_BUILD)
-     message( STATUS "Used TIFF library: ${TIFF_LIBRARIES}")
-     message( STATUS "Used GIF library:  ${GIF_LIBRARIES}")
-     message( STATUS "Used WEBP library: ${WEBP_LIBRARIES}")
-+    message( STATUS "Used WEBPMUX library: ${WEBPMUX_LIBRARIES}")
+diff --git a/cmake/templates/LeptonicaConfig.cmake.in b/cmake/templates/LeptonicaConfig.cmake.in
+index cee3a0f2..6799c7ca 100644
+--- a/cmake/templates/LeptonicaConfig.cmake.in
++++ b/cmake/templates/LeptonicaConfig.cmake.in
+@@ -28,7 +28,9 @@ if (@LIBWEBP_SUPPORT@)
+     find_dependency(WebP @MINIMUM_WEBPMUX_VERSION@ CONFIG)
  endif()
- message( STATUS "--------------------------------------------------------")
- message( STATUS )
-diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 1797d78..2421d3d 100644
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
-@@ -52,8 +52,8 @@ if (TIFF_LIBRARIES)
-     target_link_libraries       (leptonica ${TIFF_LIBRARIES})
- endif()
- if (WEBP_FOUND)
--    target_include_directories  (leptonica PUBLIC ${WEBP_INCLUDE_DIRS})
--    target_link_libraries       (leptonica ${WEBP_LIBRARIES})
-+    target_include_directories  (leptonica PUBLIC ${WEBP_INCLUDE_DIRS} ${WEBPMUX_INCLUDE_DIRS})
-+    target_link_libraries       (leptonica ${WEBP_LIBRARIES} ${WEBPMUX_LIBRARIES})
- endif()
- if (ZLIB_LIBRARIES)
-     target_include_directories  (leptonica PUBLIC ${ZLIB_INCLUDE_DIRS})
--- 
-2.43.0
-
+ 
+-include(${CMAKE_CURRENT_LIST_DIR}/LeptonicaTargets.cmake)
++#include(${CMAKE_CURRENT_LIST_DIR}/LeptonicaTargets.cmake)
++
++get_filename_component(_leptonica_install_prefix "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
+ 
+ # ======================================================
+ #  Version variables:
+@@ -44,10 +46,10 @@ SET(Leptonica_VERSION_PATCH     @leptonica_VERSION_PATCH@)
+ # ======================================================
+ 
+ # Provide the include directories to the caller
+-set(Leptonica_INCLUDE_DIRS      "@INCLUDE_DIR@")
++set(Leptonica_INCLUDE_DIRS "${_leptonica_install_prefix}/include/leptonica/")
+ 
+ # ====================================================================
+ # Link libraries:
+ # ====================================================================
+ 
+-set(Leptonica_LIBRARIES         @leptonica_NAME@)
++set(Leptonica_LIBRARIES "${_leptonica_install_prefix}/lib/leptonica-${Leptonica_VERSION}.lib")

@@ -1,27 +1,25 @@
 {% set name = "leptonica" %}
-{% set version = "1.82.0" %}
-{% set sha256 = "155302ee914668c27b6fe3ca9ff2da63b245f6d62f3061c8f27563774b8ae2d6" %}
+{% set version = "1.87.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/DanBloomberg/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: c73363397f96eb1295602bf44d708a994ad42046c791bf03ea0505d829bdb6a7
   patches:         # [win]
-    - cmake.patch  # [win]
     - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
 
 build:
-  number: 3
-  skip: True  # [win and vc<14]
+  number: 0
+  skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - autoconf      # [not win]
@@ -45,7 +43,7 @@ requirements:
     - libpng {{ libpng }}
     - libtiff {{ libtiff }}
     - libwebp {{ libwebp }}
-    - openjpeg 2.5.2
+    - openjpeg {{ openjpeg }}
     - zlib {{ zlib }}
   run:
     - giflib    # pin through giflib run_exports
@@ -72,7 +70,7 @@ about:
     software that is broadly useful for image processing and image	
     analysis applications.
   # HTTPS isn't available for doc_url
-  doc_url: http://www.leptonica.org/
+  doc_url: http://www.leptonica.org
   dev_url: https://github.com/DanBloomberg/leptonica
 
 extra:
