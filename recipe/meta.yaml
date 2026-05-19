@@ -9,7 +9,7 @@ source:
   url: https://github.com/DanBloomberg/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: c73363397f96eb1295602bf44d708a994ad42046c791bf03ea0505d829bdb6a7
   patches:         # [win]
-    - 0001-Explicitly-link-against-libwebpmux-on-Windows.patch  # [win]
+    - patches/0001-point-to-our-own-prefix-in-CMake-metadata-on-windows.patch  # [win]
 
 build:
   number: 0
