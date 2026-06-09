@@ -12,7 +12,7 @@ source:
     - patches/0001-point-to-our-own-prefix-in-CMake-metadata-on-windows.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
@@ -39,7 +39,7 @@ requirements:
   host:
     # TODO: giflib missing headers on windows?
     - giflib {{ giflib }}
-    - jpeg {{ jpeg }}
+    - libjpeg-turbo {{ libjpeg_turbo }}
     - libpng {{ libpng }}
     - libtiff {{ libtiff }}
     - libwebp {{ libwebp }}
@@ -47,7 +47,7 @@ requirements:
     - zlib {{ zlib }}
   run:
     - giflib    # pin through giflib run_exports
-    - jpeg      # pin through jpeg run_exports
+    - libjpeg-turbo  # pin through libjpeg-turbo run_exports
     - libpng    # pin through libpng run_exports
     - libtiff   # pin through libtiff run_exports
     - libwebp   # pin through libwebp run_exports
