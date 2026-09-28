@@ -12,7 +12,7 @@ source:
     - patches/0001-point-to-our-own-prefix-in-CMake-metadata-on-windows.patch  # [win]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
@@ -35,7 +35,6 @@ requirements:
     - m2-sed        # [win]
     - gawk          # [not win]
     - m2-gawk       # [win]
-    - m2-patch      # [win]
   host:
     # TODO: giflib missing headers on windows?
     - giflib {{ giflib }}
